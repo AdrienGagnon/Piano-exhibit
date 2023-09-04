@@ -1,0 +1,20 @@
+{
+    "extends": "@parcel/config-default",
+    "transformers": {
+        "*.mtl": [
+            "@parcel/transformer-raw"
+        ],
+        "*.obj": [
+            "@parcel/transformer-raw"
+        ],
+        "*.mp4": [
+            "@parcel/transformer-raw"
+        ],
+        "*.pdf": [
+            "@parcel/transformer-raw"
+        ],
+        "*.glb": [
+            "@parcel/transformer-raw"
+        ]
+    }
+}
