@@ -2,6 +2,7 @@
 
 :root {
     --color-font: black;
+    --color-background: black;
 }
 
 * {
@@ -22,7 +23,7 @@ body {
     /* overflow: hidden; */
     height: 100vh;
     width: 100vw;
-    background: blue;
+    background: var(--color-background);
 }
 
 #root {
