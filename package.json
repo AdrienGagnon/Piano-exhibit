@@ -13,12 +13,14 @@
     "dependencies": {
         "@react-three/drei": "^9.81.0",
         "@react-three/fiber": "^8.13.7",
+        "@react-three/postprocessing": "^2.15.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.15.0",
         "three": "^0.150.1"
     },
     "devDependencies": {
+        "buffer": "^6.0.3",
         "parcel": "^2.9.3",
         "process": "^0.11.10"
     },

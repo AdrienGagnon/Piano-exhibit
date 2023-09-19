@@ -10,9 +10,7 @@ import Scene from './Scene';
 function Home() {
     return (
         <Suspense fallback={<LoadingScreen />}>
-            <Canvas dpr={[1, 2]}>
-                <ambientLight intensity={0.1} />
-                {/* <directionalLight position={[0, 0, 5]} /> */}
+            <Canvas dpr={[1, 2]} camera={{ fov: 70, position: [5, 1, 2.5] }}>
                 <Scene />
             </Canvas>
         </Suspense>

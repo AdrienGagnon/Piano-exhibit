@@ -1,105 +1,118 @@
 /* Loading screen */
 
-.loading-screen {
-    /* position: absolute; */
+.loading__container {
+    --color-font: rgb(244, 239, 233);
+    --color-black: #1c110f;
+    --key-width: 3rem;
+    --gap: 2px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
-    background-color: black;
-    z-index: 500;
+    border: 1px solid red;
+    background: black;
+    color: var(--color-font);
+    z-index: 10;
+    font-size: 2.4rem;
+    gap: 2rem;
 }
 
-.fade-out {
-    transition-duration: 1s;
-    opacity: 0;
-}
-
-.displayNone {
-    display: none;
-}
-
-.infos-spin {
-    --color-spin-1: rgb(160, 82, 45);
-    --color-spin-2: rgb(210, 105, 30);
-    --color-spin-3: rgb(255, 165, 0);
-}
-
-.photos-spin {
-    --color-spin-1: rgb(11, 27, 61);
-    --color-spin-2: rgb(33, 39, 54);
-    --color-spin-3: rgb(59, 58, 58);
-}
-
-.quiz-spin {
-    --color-spin-1: #060e3a;
-    --color-spin-2: #2b2586;
-    --color-spin-3: #446a8d;
-}
-
-.loading-screen-spin {
-    display: block;
+.piano__keys {
     position: relative;
-    left: 50%;
-    top: 50%;
-    width: 150px;
-    height: 150px;
-    margin: -75px 0 0 -75px;
+    display: flex;
+    gap: var(--gap);
     border-radius: 50%;
-    border: 3px solid transparent;
-    border-top-color: var(--color-spin-1);
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
 }
 
-.loading-screen-spin:before {
-    content: '';
+.key {
+    --animation-duration: 2s;
+    height: 10rem;
+    width: var(--key-width);
+    animation: keyPress infinite;
+    animation-duration: var(--animation-duration);
+    animation-delay: var(--delay);
+}
+
+@keyframes keyPress {
+    5% {
+        background: red;
+    }
+    10% {
+        background: var(--background);
+    }
+}
+
+.white__key {
+    --background: var(--color-font);
+    background: var(--color-font);
+}
+
+.black__key {
+    --background: var(--color-black);
     position: absolute;
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    border-top-color: var(--color-spin-2);
-    -webkit-animation: spin 3s linear infinite;
-    animation: spin 3s linear infinite;
+    top: 0;
+    background: var(--color-black);
+    height: 6rem;
+    width: calc(var(--key-width) / 2);
+    z-index: 2;
+    translate: calc(-50% - var(--gap) / 2) 0;
 }
 
-.loading-screen-spin:after {
-    content: '';
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    bottom: 15px;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    border-top-color: var(--color-spin-3);
-    -webkit-animation: spin 1.5s linear infinite;
-    animation: spin 1.5s linear infinite;
+.key:nth-child(1) {
+    --delay: 0s;
 }
 
-@-webkit-keyframes spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100% {
-        -webkit-transform: rotate(360deg);
-        -ms-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+.key:nth-child(2) {
+    --delay: calc(var(--animation-duration) / 12);
+    left: calc(var(--key-width) + 1 * var(--gap));
 }
 
-@keyframes spin {
-    0% {
-        -webkit-transform: rotate(0deg);
-        -ms-transform: rotate(0deg);
-        transform: rotate(0deg);
-    }
-    100% {
-        -webkit-transform: rotate(360deg);
-        -ms-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
+.key:nth-child(3) {
+    --delay: calc(2 * var(--animation-duration) / 12);
+}
+
+.key:nth-child(4) {
+    --delay: calc(3 * var(--animation-duration) / 12);
+    left: calc(2 * var(--key-width) + 2 * var(--gap));
+}
+
+.key:nth-child(5) {
+    --delay: calc(4 * var(--animation-duration) / 12);
+}
+
+.key:nth-child(6) {
+    --delay: calc(5 * var(--animation-duration) / 12);
+}
+
+.key:nth-child(7) {
+    --delay: calc(6 * var(--animation-duration) / 12);
+    left: calc(4 * var(--key-width) + 4 * var(--gap));
+}
+
+.key:nth-child(8) {
+    --delay: calc(7 * var(--animation-duration) / 12);
+}
+
+.key:nth-child(9) {
+    --delay: calc(8 * var(--animation-duration) / 12);
+    left: calc(5 * var(--key-width) + 5 * var(--gap));
+}
+
+.key:nth-child(10) {
+    --delay: calc(9 * var(--animation-duration) / 12);
+}
+
+.key:nth-child(11) {
+    --delay: calc(10 * var(--animation-duration) / 12);
+    left: calc(6 * var(--key-width) + 6 * var(--gap));
+}
+
+.key:nth-child(12) {
+    --delay: calc(11 * var(--animation-duration) / 12);
 }

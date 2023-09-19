@@ -15,6 +15,9 @@
         ],
         "*.glb": [
             "@parcel/transformer-raw"
+        ],
+        "*.gltf": [
+            "@parcel/transformer-raw"
         ]
     }
 }
