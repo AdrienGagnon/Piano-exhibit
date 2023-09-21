@@ -1,9 +1,16 @@
-import { Vector3 } from 'three';
+import { SpotLight, Vector3 } from 'three';
 import { SpotLight } from '@react-three/drei';
+import { useRef } from 'react';
+import { SpotLightHelper } from 'three';
+import { useHelper } from '@react-three/drei';
 
 function MovingSpot({ vec = new Vector3(), ...props }) {
+    const lightRef = useRef();
+    useHelper(lightRef, SpotLightHelper, 1, 'blue');
+
     return (
         <SpotLight
+            ref={lightRef}
             castShadow
             penumbra={1}
             distance={10}

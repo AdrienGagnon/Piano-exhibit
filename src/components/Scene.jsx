@@ -19,7 +19,7 @@ function Scene() {
             {/* <Env /> */}
             <Floor />
             <ambientLight intensity={0.3} />
-            {/* <MovingSpot color="#FFFFFF" position={[2, 5, 2]} /> */}
+            <MovingSpot color="#FFFFFF" position={[2, 5, 2]} />
             <OrbitControls maxPolarAngle={Math.PI / 2 - 0.1} />
             <axesHelper args={[3]}></axesHelper>
             {/* <ContactShadows

@@ -1,15 +1,24 @@
 import model from '../../assets/models/panneau-transformed.glb';
-import woodTexture from '../../assets/models/wood_texture.webp';
 
 import React, { useRef } from 'react';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, useTexture } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three';
 
 export default function Pannel(props) {
     const { nodes, materials } = useGLTF(model);
+    let woodTextures;
+    try {
+        woodTextures = useTexture({
+            map: '/assets/textures/dark_wood_diff_4k.jpg',
+            displacementMap: '/assets/textures/dark_wood_disp_4k.png',
+        });
+    } catch (err) {
+        console.log(err);
+        console.log(process);
+    }
 
-    const woodMap = useLoader(TextureLoader, woodTexture);
+    // const woodMap = useLoader(TextureLoader, woodTexture);
 
     return (
         <group
@@ -28,8 +37,8 @@ export default function Pannel(props) {
                 material={materials.Material}
                 position={[0.016, 0.543, -0.073]}
             />
-            <mesh geometry={nodes.Panneau.geometry} material={materials.Wood}>
-                <meshStandardMaterial map={woodMap} />
+            <mesh geometry={nodes.Panneau.geometry}>
+                <meshStandardMaterial {...woodTextures} />
             </mesh>
             <mesh
                 geometry={nodes.panneau_light.geometry}
