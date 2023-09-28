@@ -1,28 +1,80 @@
 import { useFrame, useLoader, useThree } from '@react-three/fiber';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import pianoModel from '../../assets/models/piano-2.glb';
+import { useGLTF } from '@react-three/drei';
 import { handleOnHoverKeys } from '../handleOnHoverKeys';
+import pianoModel from '../../assets/models/piano-3.glb';
 
-function Piano({ pianoRef }) {
+export default function Piano({ pianoRef }) {
     // useFrame(() => {
     //     // result.nodes.keyboard.rotation.x += 5;
     // });
-    const result = useLoader(GLTFLoader, pianoModel);
     const state = useThree();
 
     const meshs = state.scene.children[2]?.children;
 
     // const keyboardWhite = meshs.find(child => child.name === 'keyboard_white');
     // const keyboardBlack = meshs.find(child => child.name === 'keyboard_black');
+
+    const check = e => {
+        console.log(e);
+        if (e.object.parent?.name !== 'Scene') {
+            console.log('piano');
+        }
+    };
+
+    const { nodes, materials } = useGLTF(pianoModel);
     return (
-        <mesh position={[-0.25, 0, -1]}>
-            <primitive
-                ref={pianoRef}
-                object={result.scene}
-                onPointerEnter={handleOnHoverKeys}
+        <group
+            castShadow
+            receiveShadow
+            dispose={null}
+            position={[-0.25, 0, -1]}
+        >
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.Cylinder.geometry}
+                material={nodes.Cylinder.material}
+                position={[0.972, 0.521, 0.737]}
             />
-        </mesh>
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.keyboard_white.geometry}
+                material={materials['Material.001']}
+                position={[-0.345, 0.557, 1.29]}
+            />
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.keyboard_black.geometry}
+                material={materials.Black}
+                position={[-0.345, 0.557, 1.29]}
+            />
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.red_rope.geometry}
+                material={materials['Red Rope']}
+                position={[0, 0.046, -0.086]}
+            />
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.wheel_support.geometry}
+                material={materials['Material.002']}
+                position={[0.959, -0.025, 1.076]}
+                rotation={[-Math.PI, 0, -Math.PI]}
+                scale={[0.15, 0.666, 0.15]}
+            />
+            <mesh
+                castShadow
+                receiveShadow
+                geometry={nodes.Music_Sheet.geometry}
+                material={materials.Material}
+                position={[0.084, 0.103, 0]}
+            />
+        </group>
     );
 }
 
-export default Piano;
+useGLTF.preload('/piano-3-transformed.glb');

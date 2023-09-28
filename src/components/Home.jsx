@@ -10,7 +10,11 @@ import Scene from './Scene';
 function Home() {
     return (
         <Suspense fallback={<LoadingScreen />}>
-            <Canvas dpr={[1, 2]} camera={{ fov: 70, position: [5, 1, 2.5] }}>
+            <Canvas
+                shadows
+                dpr={[1, 2]}
+                camera={{ fov: 70, position: [6, 0.8, 4] }}
+            >
                 <Scene />
             </Canvas>
         </Suspense>
