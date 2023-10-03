@@ -1,13 +1,17 @@
 import model from '../../assets/models/panneau-transformed.glb';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useGLTF, useTexture } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three';
 import texture from '../../assets/textures/dark_wood_diff_4k.jpg';
 import texture2 from '../../assets/textures/dark_wood_disp_4k.png';
 
-export default function Pannel(props) {
+export default function Pannel({
+    pannelRef,
+    setPannelHover,
+    setActivePosition,
+}) {
     const { nodes, materials } = useGLTF(model);
     let woodTextures;
     // try {
@@ -20,14 +24,15 @@ export default function Pannel(props) {
     // }
 
     // const woodMap = useLoader(TextureLoader, woodTexture);
-
     return (
         <group
-            {...props}
+            ref={pannelRef}
             dispose={null}
             position={[6, 0.02, 2.5]}
             scale={1.3}
             rotation={[0, Math.PI / 6, 0]}
+            onPointerOver={() => setPannelHover(true)}
+            onPointerOut={() => setPannelHover(false)}
         >
             <mesh
                 geometry={nodes.light_metal_plate.geometry}

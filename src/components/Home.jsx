@@ -13,7 +13,10 @@ function Home() {
             <Canvas
                 shadows
                 dpr={[1, 2]}
-                camera={{ fov: 70, position: [6, 0.8, 4] }}
+                camera={{
+                    fov: 70,
+                    position: [6.49, 0.84, 5.07],
+                }}
             >
                 <Scene />
             </Canvas>

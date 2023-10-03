@@ -5,7 +5,7 @@ function Floor() {
     const floorRef = useRef();
 
     useEffect(() => {
-        console.log(floorRef.current);
+        // console.log(floorRef.current);
     }, []);
     return (
         <mesh receiveShadow ref={floorRef} rotation={[-Math.PI / 2, 0, 0]}>

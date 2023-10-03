@@ -2,8 +2,9 @@ import { useFrame, useLoader, useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import { handleOnHoverKeys } from '../handleOnHoverKeys';
 import pianoModel from '../../assets/models/piano-3.glb';
+import { zoomToView } from '../../utils/zoomToView';
 
-export default function Piano({ pianoRef }) {
+export default function Piano({ pianoRef, setPianoHover, setActivePosition }) {
     // useFrame(() => {
     //     // result.nodes.keyboard.rotation.x += 5;
     // });
@@ -21,13 +22,23 @@ export default function Piano({ pianoRef }) {
         }
     };
 
+    const handleClickPiano = e => {
+        setActivePosition(1);
+        console.log(e.object.position);
+        // zoomToView((e.object.position, setZoom, zoom, setFocus));
+    };
+
     const { nodes, materials } = useGLTF(pianoModel);
     return (
         <group
+            ref={pianoRef}
             castShadow
             receiveShadow
             dispose={null}
             position={[-0.25, 0, -1]}
+            onPointerOver={() => setPianoHover(true)}
+            onPointerOut={() => setPianoHover(false)}
+            onClick={handleClickPiano}
         >
             <mesh
                 castShadow
