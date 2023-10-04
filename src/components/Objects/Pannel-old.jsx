@@ -13,16 +13,6 @@ export default function Pannel({ pannelRef }) {
 
     const gltf = useLoader(GLTFLoader, panelModel);
 
-    // useFrame(state => {
-    //     if (clicked) {
-    //         state.camera.lookAt(pannelRef.current.position);
-    //         state.camera.position.lerp(vec.set(6, 0.5, 3), 0.01);
-    //         state.camera.updateProjectionMatrix();
-    //         // setClicked(false);
-    //     }
-    //     return null;
-    // });
-
     useEffect(() => {
         gltf.nodes.panneau_light.material.emissiveIntensity = 10;
         // console.log(scene);

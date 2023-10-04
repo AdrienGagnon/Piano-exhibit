@@ -1,14 +1,13 @@
 import * as THREE from 'three';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import CameraControls from 'camera-controls';
-import { orbitControlsVectors } from '../Constants/constants';
+import { cameraStates } from '../Constants/constants';
 
 export default function Controls({
-    cameraPosition,
-    pos = new THREE.Vector3(),
-    look = new THREE.Vector3(),
     activePosition,
+    inTransition,
+    setInTransition,
 }) {
     CameraControls.install({ THREE: THREE });
     const camera = useThree(state => state.camera);
@@ -17,34 +16,37 @@ export default function Controls({
         () => new CameraControls(camera, gl.domElement),
         []
     );
-    console.log(activePosition);
+
+    useEffect(() => {
+        if (inTransition) {
+        } else {
+            controls.maxZoom = cameraStates[activePosition].maxZoom;
+            controls.minZoom = cameraStates[activePosition].minZoom;
+            controls.maxPolarAngle = cameraStates[activePosition].maxPolarAngle;
+        }
+    }, [inTransition]);
+
     return useFrame((state, delta) => {
-        const vectorPos = orbitControlsVectors[activePosition].vectorPos;
-        const vectorLook = orbitControlsVectors[activePosition].vectorLook;
-        cameraPosition.zoom
-            ? pos.set(
-                  cameraPosition.focus.x,
-                  cameraPosition.focus.y,
-                  cameraPosition.focus.z + 0.2
-              )
-            : pos.set(vectorPos.x, vectorPos.y, vectorPos.z);
-        cameraPosition.zoom
-            ? look.set(
-                  cameraPosition.focus.x,
-                  cameraPosition.focus.y,
-                  cameraPosition.focus.z - 0.2
-              )
-            : look.set(vectorLook.x, vectorLook.y, vectorLook.z);
-        state.camera.position.lerp(pos, 0.5);
+        if (!inTransition) return controls.update(delta);
+        const vectorPosition = cameraStates[activePosition];
+        if (
+            camera.position.x - 0.01 <= vectorPosition.vectorPos.x &&
+            vectorPosition.vectorPos.x <= camera.position.x + 0.01
+        ) {
+            setInTransition(false);
+        }
+        state.camera.position.lerp(vectorPosition.vectorPos, 0.5);
         state.camera.updateProjectionMatrix();
+
+        const vectorLook = vectorPosition.vectorLook;
 
         controls.setLookAt(
             state.camera.position.x,
             state.camera.position.y,
             state.camera.position.z,
-            look.x,
-            look.y,
-            look.z,
+            vectorLook.x,
+            vectorLook.y,
+            vectorLook.z,
             true
         );
         return controls.update(delta);

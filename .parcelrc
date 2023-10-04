@@ -18,6 +18,9 @@
         ],
         "*.gltf": [
             "@parcel/transformer-raw"
+        ],
+        "*.mp3": [
+            "@parcel/transformer-raw"
         ]
     }
 }
